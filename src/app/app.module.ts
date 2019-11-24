@@ -42,11 +42,19 @@ import { AuthInterceptorService } from './auth/auth-interceptor-service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
 
   ],
-  providers: [ShoppingListService, RecipeService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
+  providers: [
+    ShoppingListService, 
+    RecipeService,
+     {
+       provide: HTTP_INTERCEPTORS, 
+       useClass: AuthInterceptorService, 
+       multi: true
+      }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
