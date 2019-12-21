@@ -32,7 +32,7 @@ export function authReducer(
                 authError: null, 
                 user: user,
                 loading: false
-            }
+            };
         case AuthActions.LOGOUT:
             return{
                 ...state,

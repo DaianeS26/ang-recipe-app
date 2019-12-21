@@ -6,17 +6,14 @@ import { take, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { Recipe}  from './recipe.model';
-import { RecipeService } from './recipe.service';
+
 import * as fromApp from '../store/app.reducer';
-import * as RecipeActions from './store/recipe.actions';
-
-
+import * as RecipesActions from './store/recipe.actions';
 
 
 @Injectable({providedIn: 'root'})
 export class RecipesResolverService implements Resolve<Recipe[]>{
     constructor(
-        private recipeService: RecipeService,
         private store: Store<fromApp.AppState>,
         private actions$: Actions
     ){}
@@ -30,9 +27,9 @@ export class RecipesResolverService implements Resolve<Recipe[]>{
             }), 
             switchMap(recipes => {
                 if(recipes.length === 0){
-                    this.store.dispatch(new RecipeActions.FetchRecipes());
+                    this.store.dispatch(new RecipesActions.FetchRecipes());
                     return this.actions$.pipe(
-                        ofType(RecipeActions.SET_RECIPES), 
+                        ofType(RecipesActions.SET_RECIPES), 
                         take(1)
                     );
                 } else {

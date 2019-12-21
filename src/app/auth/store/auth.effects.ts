@@ -20,10 +20,13 @@ export interface AuthResponseData {
     registered?: boolean;
 }
 
-const handleAuthentication = (expiresIn: number, email: string, userId: string, token: string ) => {
-    const expirationDate = new Date(
-        new Date().getTime() + expiresIn * 1000
-    );
+const handleAuthentication = (
+    expiresIn: number, 
+    email: string, 
+    userId: string, 
+    token: string 
+) => {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
     localStorage.setItem('userData', JSON.stringify(user));
     return new AuthActions.AuthenticateSuccess({
@@ -135,7 +138,8 @@ export class AuthEffects {
     );
 
     @Effect()
-    autoLogin = this.actions$.pipe(ofType(AuthActions.AUTO_LOGIN),
+    autoLogin = this.actions$.pipe(
+        ofType(AuthActions.AUTO_LOGIN),
         map(() => {
                 const userData: {
                   email: string;
@@ -183,8 +187,6 @@ export class AuthEffects {
             this.router.navigate(['/auth']);
         })
     );
-
-
 
     constructor(
         private actions$: Actions, 
